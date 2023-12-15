@@ -57,7 +57,7 @@ id [USERNAME]
 Print OS info
 
 ```shell
-uname
+uname -a
 ```
 
 ```shell
@@ -74,7 +74,7 @@ https://askubuntu.com/questions/610052/how-can-i-preset-aliases-for-all-users
 alias ll='ls -alH'
 ```
 
-##### Permissions
+##### 1.4 Permissions
 
 Change permissions (replace 000 (ugo) for the desired permission (r,w,x -> 4,2,1) for user, group and others)
 
@@ -95,4 +95,18 @@ sudo chown USER:GROUP FILE
 
 ```shell
 sudo chrgrp GROUP FILE # can be used by non root users on files they own
+```
+
+##### 1.5 Network
+
+Show network interfaces
+
+```shell
+ip link
+```
+
+Print ip address
+
+```shell
+hostname -I
 ```
