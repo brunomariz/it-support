@@ -20,11 +20,7 @@ getent passwd
 Switch user (-: go to users home directory on login)
 
 ```shell
-su USER
-```
-
-```shell
-su - USER
+su [-] USER
 ```
 
 Add group to user (-a: append; -G: change user supplementary groups) 
@@ -39,4 +35,14 @@ Create group
 
 ```shell
 sudo groupadd GROUP
+```
+
+View user groups
+
+```shell
+groups [USERNAME]
+```
+
+```shell
+id
 ```
