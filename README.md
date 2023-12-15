@@ -26,7 +26,7 @@ su [-] USER
 Add group to user (-a: append; -G: change user supplementary groups) 
 
 ```shell
-sudo usermod -aG GROUP USER
+sudo usermod -aG GROUP1,GROUP2,GROUP3 USER
 ```
 
 ##### 1.2 Groups
