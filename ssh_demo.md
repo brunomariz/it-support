@@ -19,7 +19,7 @@ To check this step, you can open a new third terminal window on your host machin
 and run `docker ps` to see the new containers running. The output should look something
 like this:
 
-```{: .optional-language-as-class .no-copy}
+```
 ~$ docker ps
 CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
 4317b6ea601c   ubuntu    "/bin/bash"   34 seconds ago   Up 34 seconds             heuristic_meninsky
@@ -88,7 +88,7 @@ test
 hostname -I
 ```
 
-```{style="text-color:110,110,110"}
+```
 172.17.0.3 
 ```
 
