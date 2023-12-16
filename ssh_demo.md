@@ -1,4 +1,4 @@
-# SSH Demo
+# Creating SSH connections between Docker containers
 
 This file is a guide for creating an SSH client and server on separate containers for demonstration purposes.
 
