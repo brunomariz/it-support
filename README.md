@@ -99,10 +99,16 @@ sudo chrgrp GROUP FILE # can be used by non root users on files they own
 
 ##### 1.5 Network
 
-Show network interfaces
+Show network interfaces with status
 
 ```shell
 ip link
+```
+
+Show ip address configuration
+
+```shell
+ip addr
 ```
 
 Print ip address
@@ -110,3 +116,17 @@ Print ip address
 ```shell
 hostname -I
 ```
+
+Bring up/down a linux network interface
+
+```shell
+sudo ifup [INTERFACE]
+```
+
+```shell
+sudo ifdown [INTERFACE]
+```
+
+
+
+
