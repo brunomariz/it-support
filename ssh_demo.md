@@ -19,7 +19,7 @@ To check this step, you can open a new third terminal window on your host machin
 and run `docker ps` to see the new containers running. The output should look something
 like this:
 
-```
+```console
 ~$ docker ps
 CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
 4317b6ea601c   ubuntu    "/bin/bash"   34 seconds ago   Up 34 seconds             heuristic_meninsky
@@ -55,7 +55,7 @@ adduser brini
 
 Fill in the information and make sure to remember the password, as it will be used when we connect from the client
 
-```
+```console
 New password: 
 Retype new password: 
 passwd: password updated successfully
@@ -76,7 +76,7 @@ want to see them on the client
 su - brini
 ```
 
-```
+```console
 brini@4317b6ea601c:~$ mkdir test
 brini@4317b6ea601c:~$ ls 
 test
@@ -109,7 +109,7 @@ ssh brini@172.17.0.3
 
 11. After inserting the password, use the server remotely from the client container
 
-```bash
+```console
 brini@4317b6ea601c:~$ echo "hello!" >> test/file.txt
 ```
 
@@ -117,7 +117,7 @@ brini@4317b6ea601c:~$ echo "hello!" >> test/file.txt
 
 12. Back on the server container, check if remote changer appear
 
-```bash
+```console
 brini@4317b6ea601c:~$ cd test/
 brini@4317b6ea601c:~/test$ ls
 file.txt
