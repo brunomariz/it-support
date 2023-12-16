@@ -28,6 +28,10 @@ b9eaf4228eec   ubuntu    "/bin/bash"   38 seconds ago   Up 38 seconds           
 
 3. Run `apt update` on both containers
 
+```shell
+apt update
+```
+
 ### Setup server container 
 
 4. Choose arbitrarily which container is the client and the server. On the terminal window running the 
