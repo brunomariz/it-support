@@ -10,6 +10,7 @@ This file is a guide for creating an SSH client and server on separate container
 
 - [Option 1: using server user's password](#option-1-using-server-users-password)
 - [Option 2: using public key authentication](#option-2-using-public-key-authentication)
+- [Cleanup](#cleanup)
 
 ## Option 1: using server user's password
 
@@ -264,4 +265,4 @@ hello!
 
 ## Cleanup
 
-To quit the opened containers, use the command `Ctrl+D` to logout. 
+To quit the opened containers, use the command `Ctrl+D` to logout and exit.
