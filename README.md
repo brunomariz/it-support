@@ -40,6 +40,12 @@ Add group to user (-a: append; -G: change user supplementary groups)
 sudo usermod -aG GROUP1,GROUP2,GROUP3 USER
 ```
 
+Show a listing of last logged in ssh users
+
+```shell
+last
+```
+
 ##### 1.2 Groups
 
 Create group
