@@ -22,6 +22,12 @@ View users information (/etc/passwd)
 getent passwd [{START_ID..END_ID}]
 ```
 
+Show account aging information
+
+```shell
+chage -l USER
+```
+
 Switch user (-: go to users home directory on login)
 
 ```shell
