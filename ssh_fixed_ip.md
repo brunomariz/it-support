@@ -1,5 +1,11 @@
 # SSH to a container with fixed ip
 
+## Prerequisites
+
+- Docker
+
+### Setup
+
 ```shell
 docker network create --subnet=172.18.0.0/16 my-net
 ```
@@ -14,7 +20,7 @@ docker run -it --rm --name pc1 --net my-net --ip 172.18.0.101 ubuntu bash
 docker run -it --rm --name pc2 --net my-net --ip 172.18.0.102 ubuntu bash
 ```
 
-Create sudo users for pc1 and pc2
+[Create sudo users for pc1 and pc2](create_sudo_user.md)
 
 Install ssh server on pc1 and pc2 and ssh client on admin
 
@@ -34,15 +40,15 @@ Admin:
 apt install openssh-client
 ```
 
-Edit admins /etc/hosts
-
-add the lines
+Edit admins /etc/hosts by adding the lines
 
 ```
 172.18.0.100	admin
 172.18.0.101     pc1
 172.18.0.102     pc2
 ```
+
+/etc/hosts should look something like this:
 
 ```
   127.0.0.1	localhost
@@ -55,6 +61,8 @@ add the lines
 + 172.18.0.10     pc1
 + 172.18.0.11     pc2
 ```
+
+### Creating connection
 
 ssh from admin container
 
