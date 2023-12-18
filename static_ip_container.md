@@ -1,4 +1,4 @@
-# SSH to a container with fixed ip
+# SSH to containers with fixed ip
 
 ## Prerequisites
 
@@ -64,7 +64,7 @@ Edit admins /etc/hosts by adding the lines
 
 ### Creating connection
 
-ssh from admin container
+Connect from admin container
 
 ```shell
 ssh user1@pc1
