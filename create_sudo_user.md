@@ -46,20 +46,6 @@ Log into user to test
 su - user
 ```
 
-Create a file
-
 ```shell
-sudo touch file
-```
-
-List file details
-
-```shell
-ls -l
-```
-
-File is owned by root
-
-```console
--rw-r--r-- 1 root root 0 Dec 18 21:02 file
+groups
 ```
