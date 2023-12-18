@@ -36,6 +36,10 @@ usermod -aG sudo user
 
 ## Testing
 
+```shell
+cat /etc/group | grep sudo
+```
+
 Log into user to test
 
 ```shell
