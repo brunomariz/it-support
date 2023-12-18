@@ -6,9 +6,15 @@
 
 ### Setup
 
+Run each of these commands on a separate terminal to create a docker network and the containers that will be used.
+
+Create a docker network with a user defined subnet
+
 ```shell
 docker network create --subnet=172.18.0.0/16 my-net
 ```
+
+Create ubuntu containers connected to that network, and define their ip addresses
 
 ```shell
 docker run -it --rm --name admin --net my-net --ip 172.18.0.100 ubuntu bash
