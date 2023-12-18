@@ -30,7 +30,7 @@ docker run -it --rm --name pc2 --net my-net --ip 172.18.0.102 ubuntu bash
 
 Install ssh server on pc1 and pc2 and ssh client on admin
 
-Client:
+PC1 and PC2 containers:
 
 ```shell
 apt install openssh-server
@@ -40,7 +40,9 @@ apt install openssh-server
 service ssh start
 ```
 
-Admin:
+Admin container:
+
+> Obs: you might need to run `apt update` before
 
 ```shell
 apt install openssh-client
