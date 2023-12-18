@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Docker
+- [Docker](https://docs.docker.com/engine/install/ubuntu/)
 
 ### Setup
 
