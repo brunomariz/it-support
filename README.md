@@ -139,6 +139,12 @@ sudo ifup [INTERFACE]
 sudo ifdown [INTERFACE]
 ```
 
+Sending data between computers (netcat)
+
+```shell
+nc [<options>] <host> <port>
+```
+
 
 
 
