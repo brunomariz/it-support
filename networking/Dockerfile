@@ -5,4 +5,4 @@ WORKDIR /networking
 
 RUN apt update
 
-RUN apt install -y iproute2 net-tools ifupdown ipcalc
+RUN apt install -y iproute2 net-tools ifupdown ipcalc netcat iputils-ping
