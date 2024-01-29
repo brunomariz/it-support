@@ -96,6 +96,13 @@ $ nmcli connection modify 'connection-name' ipv4.dns-options trust-ad
 $ nmcli connection modify 'connection-name' ipv4.ignore-auto-dns yes
 ```
 
+- Set ipv4 dns priority to be higher than ipv6 dns priority
+
+```shell
+$ nmcli con mod 'connection-name' ipv6.dns-priority 51
+$ nmcli con mod 'connection-name' ipv4.dns-priority 50
+```
+
 - Restart NetworkManager to regenerate `/etc/resolv.conf`
 
 ```shell
@@ -141,5 +148,8 @@ perola.gres.home.	0	IN	A	192.168.15.200
 ;; WHEN: dom jan 28 23:46:36 -03 2024
 ;; MSG SIZE  rcvd: 61
 ```
+
+![image](https://github.com/brunomariz/it-support/assets/48870924/91327a9e-5bea-478d-a555-fd25fc06a96e)
+
 
 
