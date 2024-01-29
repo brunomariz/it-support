@@ -149,7 +149,6 @@ perola.gres.home.	0	IN	A	192.168.15.200
 ;; MSG SIZE  rcvd: 61
 ```
 
-![image](https://github.com/brunomariz/it-support/assets/48870924/91327a9e-5bea-478d-a555-fd25fc06a96e)
-
+![image](https://github.com/brunomariz/it-support/assets/48870924/4fff9302-0d4c-46c6-ba36-899814866de9)
 
 
