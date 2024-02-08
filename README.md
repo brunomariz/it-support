@@ -145,6 +145,13 @@ Sending data between computers (netcat)
 nc [<options>] <host> <port>
 ```
 
+#### Packages
+
+Find packages installed with dnf
+
+```shell
+rpm -ql package-name
+```
 
 
 
