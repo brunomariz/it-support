@@ -8,6 +8,10 @@ necessary to reload the shell or `source PREFIX/init/bash` after installing. In 
 
 ### Example
 
+Running on a VirtualBox VM
+
+OS: Rocky Linux 9.3 minimal
+
 #### Go
 
 Let's download Go and create a modulefile. Normally, you would install Go by downloading a compressed tar file and adding /usr/local/go/bin to the PATH environment variable. This would be done, for example, by adding export `PATH=$PATH:/usr/local/go/bin` to $HOME/.profile or /etc/profile. However, if we want to have different Go versions availiable, we can instead create environment modules that add different go installations to the PATH variable when we load the module.
