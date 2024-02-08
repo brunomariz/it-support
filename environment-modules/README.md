@@ -2,6 +2,10 @@
 
 ### Installation
 
+Running on a VirtualBox VM
+
+OS: Rocky Linux 9.3 minimal
+
 - Docs: https://modules.readthedocs.io/en/latest/
     - `dnf install -y environment-modules`
 necessary to reload the shell or `source PREFIX/init/bash` after installing. In this case, PREFIX is `/usr/share/Modules`. A relogin will work because it will execute the source command in the `/etc/profile.d/modules.sh` file.
