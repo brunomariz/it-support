@@ -11,7 +11,7 @@
 
 ## Creating local DNS server with dnsmasq
 
-- Reference: https://wiki.archlinux.org/title/dnsmasq#Adding_a_custom_domain. The html and files for this website on the day of the visit are saved on /networking/dnsmasq-ArchWiki*
+- Reference: https://wiki.archlinux.org/title/dnsmasq#Adding_a_custom_domain. The html and files for this website on the day of the visit are saved on /snapshots/dnsmasq-ArchWiki*
 
 Server OS: Rocky Linux (Alternative Raspberry Pi build)
 Client OS: Ubuntu
