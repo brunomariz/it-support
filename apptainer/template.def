@@ -3,15 +3,15 @@ From: ubuntu:latest
 
 %environment
     export VAR=VALUE
-  
+
 %post
     apt update -y
-    apt install -y python
+    apt install -y python3
 
 %test
-    which python | grep -q "/venv/bin/python"
+    python3 -c "print('Hello, world!')" | grep "Hello, world!"
     if [ $? -eq 0 ]; then
-        echo "python installed and using appropriate venv"
+        echo "python installed appropriately"
     else
         echo "python installation error"
         exit 1
@@ -23,13 +23,12 @@ From: ubuntu:latest
 %help
     Built on: {{CONTAINER_BUILD_DATE}}
 
-    This container is an apptainer version of the official Devito image https://hub.docker.com/r/devitocodes/devito.
+    This container is a template with an installation of python3.
 
-    Usage: 
+    Usage:
+
         apptainer exec container.sif command
-        Examples:
-            apptainer exec container.sif python -c "print('Hello world!')"
-         
+
     Argument list:
 
         CONTAINER_BUILD_DATE
