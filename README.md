@@ -123,6 +123,18 @@ Show ip address configuration
 ip addr
 ```
 
+Set static ip adress on interface
+
+```shell
+ip a add _ip_address_ dev _interface_name_
+```
+
+Example:
+
+```shell
+ip a add 192.168.0.3/24 dev ens18
+```
+
 Print ip address
 
 ```shell
