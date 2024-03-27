@@ -126,7 +126,7 @@ ip addr
 Set static ip adress on interface
 
 ```shell
-ip a add _ip_address_ dev _interface_name_
+ip a add <ip_address> dev <interface_name>
 ```
 
 Example:
