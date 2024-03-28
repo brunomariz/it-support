@@ -123,7 +123,7 @@ Show ip address configuration
 ip addr
 ```
 
-Set static ip adress on interface
+Set static ip adress on interface (temporary, to change permanently, use network manager, e.g. `nmtui`)
 
 ```shell
 ip a add <ip_address> dev <interface_name>
