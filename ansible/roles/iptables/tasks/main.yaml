@@ -1,0 +1,6 @@
+---
+# the main list of tasks that the role executes
+- name: Include subtasks
+  import_tasks: ws-proxmox.yaml
+  when: IPTABLES_CONFIGURE_PROXMOX
+...

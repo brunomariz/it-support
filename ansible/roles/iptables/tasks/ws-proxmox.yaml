@@ -1,0 +1,29 @@
+---
+# Configure proxmox servers firewall rules and forwarding
+- name: Copy script with iptables commands
+  ansible.builtin.template:
+    src: templates/iptables-proxmox.sh
+    dest: /tmp/iptables-proxmox.sh
+    mode: +x
+
+- name: Make sure IPTABLES_PROXMOX_SERVER_SSH_PORT is the same as the configured ssh port on the servers
+  block:
+  - name: Get current server port
+    ansible.builtin.shell:
+      cmd: |
+        CURRENT_SERVER_PORT=$(cat /etc/ssh/sshd_config | grep Port | sed -E "s/\s*Port\s*//" | sed -E "s/#.*//")
+        echo $CURRENT_SERVER_PORT
+    register: current_server_port
+
+  - name: Make sure current server port == IPTABLES_PROXMOX_SERVER_SSH_PORT
+    ansible.builtin.assert:
+      that: "current_server_port.stdout == IPTABLES_PROXMOX_SERVER_SSH_PORT"
+
+- name: Enable ip routing
+  ansible.builtin.shell:
+    cmd: echo 1 > /proc/sys/net/ipv4/ip_forward
+
+- name: Run iptables script
+  ansible.builtin.shell:
+    cmd: sh /tmp/iptables-proxmox.sh
+...

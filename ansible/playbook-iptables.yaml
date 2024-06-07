@@ -1,0 +1,12 @@
+---
+- name: Example playbook
+  hosts: workstationproxmoxservers
+  remote_user: root
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: iptables
+      vars:
+        IPTABLES_CONFIGURE_PROXMOX: true
+...

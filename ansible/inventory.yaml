@@ -1,0 +1,8 @@
+---
+# Proxmox servers for workstations
+workstationproxmoxservers:
+  vars:
+    ansible_port: 3232
+  hosts:
+    examplehost1.gres.internal:
+...

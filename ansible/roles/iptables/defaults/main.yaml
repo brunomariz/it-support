@@ -1,0 +1,8 @@
+---
+# default variables for the role (see Using Variables for more information). These variables have the lowest priority of any variables available and can be easily overridden by any other variable, including inventory variables.
+IPTABLES_PROXMOX_SERVER_SSH_PORT: "3232"
+IPTABLES_PROXMOX_LAN_INTERFACE_NAME: "vmbr1"
+IPTABLES_PROXMOX_WAN_INTERFACE_NAME: "vmbr0"
+IPTABLES_PROXMOX_VM_NAT_LAN_IP: "192.168.1.10"
+IPTABLES_PROXMOX_PVE_ENTERPRISE_LAN_IP: "10.10.10.11"
+...

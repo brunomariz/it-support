@@ -1,0 +1,25 @@
+---
+# the main list of tasks that the role executes
+- name: debug 
+  ansible.builtin.debug:
+    msg: "Hello, {{example_var}}! - From a {{ansible_os_family}} computer."
+
+- name: Test connection
+  ansible.builtin.ping:
+
+- name: Copy template file
+  ansible.builtin.template:
+    src: ./templates/example.txt
+    dest: /tmp/example.txt
+
+- name: Copy regular file
+  ansible.builtin.copy:
+    src: files/example2.txt
+    dest: /tmp/example2.txt
+
+- name: Include subtasks
+  import_tasks: subtasks.yaml
+  when: true
+
+
+...
