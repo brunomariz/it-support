@@ -1,4 +1,10 @@
 ---
+# Workstations
+workstations:
+  vars:
+  hosts:
+    exampleworkstation1.gres.internal:
+
 # Proxmox servers for workstations
 workstationproxmoxservers:
   vars:
