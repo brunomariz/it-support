@@ -1,0 +1,14 @@
+---
+- name: Example playbook
+  hosts: workstations
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: base
+      vars:
+        example_var: Systems Administrator
+    - role: base
+      vars:
+        example_var: Developer
+...
