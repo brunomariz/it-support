@@ -1,6 +1,6 @@
 ---
-- name: Example playbook
-  hosts: workstations
+- name: Example server play
+  hosts: exampleservers
   become: true
   gather_facts: true
 
@@ -8,7 +8,16 @@
     - role: base
       vars:
         example_var: Systems Administrator
+        BASE_CONFIGURE_SERVER: true
+
+- name: Example client play
+  hosts: exampleclients
+  become: true
+  gather_facts: true
+
+  roles:
     - role: base
       vars:
         example_var: Developer
+        BASE_CONFIGURE_CLIENT: true
 ...

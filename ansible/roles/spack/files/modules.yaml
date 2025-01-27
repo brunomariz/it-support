@@ -1,0 +1,18 @@
+---
+modules:
+  default:
+    roots:
+      # define modulefiles path
+      lmod: /opt/modulefiles/spack
+    # disable architecture folder (e.g. .../modules/linux-rocky9-nehalem/...)
+    arch_folder: false
+    enable:
+      # automatically generate module files for new packages
+      - lmod
+    lmod:
+      # don't display dependencies on 'module avail',
+      # only directly installed packages
+      hide_implicits: true
+      # set hash length in module names to 2
+      hash_length: 2
+...

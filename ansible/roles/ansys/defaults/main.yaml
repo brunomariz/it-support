@@ -1,0 +1,12 @@
+---
+ANSYS_INSTALL_DIR: /ansys_inc
+ANSYS_VERSION: 2024R2
+ANSYS_DISK1_PATH: /opt/ansys/disk1/ANSYS{{ ANSYS_VERSION }}_LINX64_DISK1.iso
+ANSYS_DISK2_PATH: /opt/ansys/disk2/ANSYS{{ ANSYS_VERSION }}_LINX64_DISK2.iso
+ANSYS_DISK3_PATH: /opt/ansys/disk3/ANSYS{{ ANSYS_VERSION }}_LINX64_DISK3.iso
+ANSYS_DISK4_PATH: /opt/ansys/disk4/ANSYS{{ ANSYS_VERSION }}_LINX64_DISK4.iso
+ANSYS_MNT_PATH: /opt/ansys/mnt
+
+# License manager hostname
+ANSYS_LM_SERVER_HOSTNAME: "mylicmanager"
+...

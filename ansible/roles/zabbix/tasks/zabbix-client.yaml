@@ -1,0 +1,48 @@
+---
+- name: Install Zabbix repository RPM
+  ansible.builtin.shell:
+    cmd: "rpm -Uvh https://repo.zabbix.com/zabbix/7.0/rocky/9/x86_64/zabbix-release-7.0-5.el9.noarch.rpm && dnf clean all"
+  register: res
+  failed_when: res.rc != 0 and res.rc != 2
+  
+- name: Install zabbix packages
+  ansible.builtin.dnf:
+    name: 
+      - zabbix-agent2
+      - zabbix-agent2-plugin-*
+    state: latest
+
+- name: Configure server in zabbix_agent2.conf
+  ansible.builtin.lineinfile:
+    path: /etc/zabbix/zabbix_agent2.conf
+    regexp: ^#?Server=
+    line: Server=10.10.176.7
+
+- name: Restart zabbix-agent2
+  ansible.builtin.systemd_service:
+    name: zabbix-agent2
+    state: restarted
+    enabled: true
+
+- name: Open firewall services
+  ansible.builtin.firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+    - http
+    - mysql
+
+- name: Open firewall ports
+  ansible.builtin.firewalld:
+    port: "{{ item }}/tcp"
+    permanent: true
+    state: enabled
+  loop:
+    - "10050"
+
+- name: Restart firewall
+  ansible.builtin.systemd_service:
+    name: firewalld
+    state: restarted
+...

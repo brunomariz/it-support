@@ -1,0 +1,25 @@
+---
+- name: Install zabbix server
+  hosts: zabbixserver
+  become: true
+  gather_facts: true
+
+  roles:
+    # Install mariadb
+    - role: bertvv.mariadb
+      vars:
+
+    - role: zabbix
+      vars:
+        ZABBIX_CONFIGURE_SERVER: true
+
+- name: Install zabbix clients
+  hosts: zabbixclients
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: zabbix
+      vars:
+        ZABBIX_CONFIGURE_CLIENT: true
+...

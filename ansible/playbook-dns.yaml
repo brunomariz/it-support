@@ -1,0 +1,7 @@
+- name: Example playbook
+  hosts: dnsserver
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: dns

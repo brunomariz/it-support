@@ -1,0 +1,70 @@
+---
+#  Configure IPA client
+
+- name: Install freeipa-client package
+  ansible.builtin.dnf:
+    name: freeipa-client 
+    state: latest
+
+- name: Configure firewall
+  vars:
+    tcp_ports: 
+      - 80
+      - 88
+      - 389
+      - 464
+    udp_ports: 
+      - 88
+      - 464
+      - 123
+  block:
+
+    - name: Configure firewall service
+      ansible.posix.firewalld:
+        service: freeipa-4 
+        permanent: true
+        state: enabled
+
+    - name: Configure firewall TCP ports
+      ansible.posix.firewalld:
+        port: "{{item}}/tcp" 
+        permanent: true
+        state: enabled
+      loop: "{{tcp_ports}}"
+
+    - name: Configure firewall UDP ports
+      ansible.posix.firewalld:
+        port: "{{ item }}/udp" 
+        permanent: true
+        state: enabled
+      loop: "{{udp_ports}}"
+
+    - name: Restart firewall
+      ansible.builtin.systemd_service:
+        name: firewalld
+        state: reloaded
+
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next steps may take a while"
+
+- name: Get hostname
+  ansible.builtin.shell:
+    cmd: hostname
+  register: hostname
+
+- name: Set host_fqdn
+  when: host_fqdn is not defined
+  ansible.builtin.set_fact:
+    host_fqdn: "{{ hostname.stdout }}"
+
+- name: Show host FQDN
+  ansible.builtin.debug:
+    var: host_fqdn
+
+- name: Run ipa-client-install
+  ansible.builtin.command:
+    cmd: ipa-client-install --force-join --mkhomedir --domain={{ IPA_DOMAIN_NAME }} --server={{ IPA_SERVER_HOSTNAME }} --realm={{ IPA_REALM_NAME }} -p admin -w {{ IPA_ADMIN_PASSWORD }} --hostname {{ host_fqdn }} -U
+  register: install_result
+  failed_when: '("FAILED" in install_result.stdout or "failed" in install_result.stdout) and "is already configured" not in install_result.stdout'
+...

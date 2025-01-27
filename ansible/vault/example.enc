@@ -1,0 +1,3 @@
+IPA_DM_PASSWORD: secret_pass # The password to be used by the Directory Server for the Directory Manager user
+
+IPA_ADMIN_PASSWORD: secret_pass # The password for the IPA admin user.

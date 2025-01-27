@@ -1,0 +1,17 @@
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                     ┃
+┃     **WARNING**: RESTRICTED ACCESS SYSTEM                           ┃ 
+┃                                                                     ┃ 
+┃     You are attempting to access a restricted system.               ┃ 
+┃     Unauthorized access is strictly prohibited.                     ┃ 
+┃                                                                     ┃ 
+┃     Only authorized personnel are permitted to log into this        ┃ 
+┃     system. If you are not authorized, disconnect immediately.      ┃ 
+┃                                                                     ┃ 
+┃     All activities on this system are monitored and recorded.       ┃ 
+┃     By continuing, you acknowledge that you understand and          ┃ 
+┃     consent to these terms.                                         ┃ 
+┃                                                                     ┃ 
+┃     If you need access, please contact the system administrator.    ┃ 
+┃                                                                     ┃ 
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛

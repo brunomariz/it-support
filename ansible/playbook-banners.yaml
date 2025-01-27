@@ -1,0 +1,11 @@
+---
+- name: Add restricted access banner to sysadmin servers
+  hosts: sysadminservers
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: banner
+      vars:
+        BANNER_CONFIGURE_RESTRICTED: true
+...

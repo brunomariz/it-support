@@ -1,0 +1,66 @@
+---
+- name: Configure ansys NFS server
+  hosts: ansysnfsserver
+  become: true
+  gather_facts: true
+  tags: server
+
+  roles:
+    - role: nfs
+      vars:
+        # Global configuration vars
+        # Path exported from server
+        NFS_SERVER_SHARE_PATH: /share/ansys
+        # Define if server taks should be ran on hosts
+        NFS_CONFIGURE_SERVER: true
+        # Server configuration vars
+        NFS_CLIENTS_IP: "*"
+        NFS_CLIENTS_NETMASK: 255.255.255.0
+
+# - name: Configure comsol NFS server
+#   hosts: comsolnfsserver
+#   become: true
+#   gather_facts: true
+#   tags: server
+
+#   roles:
+#     - role: nfs
+#       vars:
+#         # Global configuration vars
+#         # Path exported from server
+#         NFS_SERVER_SHARE_PATH: /share/comsol
+#         # Define if server taks should be ran on hosts
+#         NFS_CONFIGURE_SERVER: true
+#         # Server configuration vars
+#         NFS_CLIENTS_IP: "*"
+#         NFS_CLIENTS_NETMASK: 255.255.255.0
+
+# - name: Configure NFS clients
+#   hosts: workstations
+#   become: true
+#   gather_facts: true
+#   tags: client
+
+#   roles:
+#     - role: nfs
+#       vars:
+#         # Global configuration vars
+#         # Path exported from server
+#         NFS_SERVER_SHARE_PATH: /share/ansys
+#         # Define if client taks should be ran on hosts
+#         NFS_CONFIGURE_CLIENT: true
+#         # Client configuration vars
+#         NFS_SERVER_IP: ansys.nfs.gres.internal
+#         NFS_MOUNTED_DIR: /share/ansys
+    
+#     - role: nfs
+#       vars:
+#         # Global configuration vars
+#         # Path exported from server
+#         NFS_SERVER_SHARE_PATH: /share/comsol
+#         # Define if client taks should be ran on hosts
+#         NFS_CONFIGURE_CLIENT: true
+#         # Client configuration vars
+#         NFS_SERVER_IP: comsol.nfs.gres.internal
+#         NFS_MOUNTED_DIR: /share/comsol
+...

@@ -1,0 +1,72 @@
+---
+# the main list of tasks that the role executes
+- name: Print ansible_host
+  ansible.builtin.debug:
+    msg: "DNS_SERVER_IP={{DNS_SERVER_IP}}" 
+
+- name: Install dnsmasq package
+  ansible.builtin.dnf:
+    name: dnsmasq
+    state: latest
+
+- name: Configure dnsmasq files
+  block:
+
+    - name: Configure dnsmasq.conf
+      ansible.builtin.template:
+          src: ./templates/dnsmasq.conf
+          dest: /etc/dnsmasq.conf
+          backup: true
+
+    - name: Configure resolv.dnsmasq
+            # resolv.dnsmasq has the IP addresses of upper DNS servers which the dnsmasq service forwards queries to and caches replies from 
+      ansible.builtin.template:
+          src: ./templates/resolv.dnsmasq
+          dest: /etc/resolv.dnsmasq
+          backup: true
+
+    - name: Configure resolv.conf
+      ansible.builtin.copy:
+          src: ./files/resolv.conf
+          dest: /etc/resolv.conf
+          backup: true
+
+- name: Make resolv.conf changes permanent
+  ansible.builtin.copy:
+    src: ./files/90-dns-none.conf
+    dest: /etc/NetworkManager/conf.d/90-dns-none.conf
+
+- name: Copy hosts file
+  ansible.builtin.copy:
+    src: ./files/hosts
+    dest: /etc/hosts
+    backup: true
+  tags: hosts
+
+- name: Enable and restart dnsmasq
+  ansible.builtin.systemd_service:
+    name: dnsmasq
+    enabled: true
+    state: restarted
+  tags: hosts
+
+- name: Configure Firewall
+  block:
+
+    - name: Enable TCP dns traffic
+      ansible.posix.firewalld:
+        port: 53/tcp
+        permanent: true
+        state: enabled
+
+    - name: Enable UDP dns traffic
+      ansible.posix.firewalld:
+        port: 53/udp
+        permanent: true
+        state: enabled
+        
+    - name: Restart firewalld
+      ansible.builtin.systemd_service:
+        name: firewalld
+        state: restarted
+...

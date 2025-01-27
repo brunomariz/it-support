@@ -1,0 +1,23 @@
+- name: Installs Ansys on workstations.
+  hosts: workstations
+  become: true
+  gather_facts: true
+
+  roles:
+    # Configure ansys NFS share
+    # - role: nfs
+    #   vars:
+    #     # Global configuration vars
+    #     # Path exported from server
+    #     NFS_SERVER_SHARE_PATH: /share/ansys
+    #     # Define if client taks should be ran on hosts
+    #     NFS_CONFIGURE_CLIENT: true
+    #     # Client configuration vars
+    #     NFS_SERVER_IP: ansys.nfs.gres.internal
+    #     NFS_MOUNTED_DIR: /share/ansys
+
+    # Install graphical interface
+    - role: unminimize
+
+    # Install ansys
+    - role: ansys

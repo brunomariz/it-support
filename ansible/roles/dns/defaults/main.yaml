@@ -1,0 +1,6 @@
+---
+DNS_NAMESERVER1_IP: 100.100.100.100
+DNS_NAMESERVER2_IP: 100.100.100.101
+
+DNS_SERVER_IP: "{{ansible_default_ipv4.address}}" # using the servers default IP as the dns server IP
+...

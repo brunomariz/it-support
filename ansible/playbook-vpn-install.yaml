@@ -1,0 +1,11 @@
+---
+- name: Install OpenVPN
+  hosts: vpnserver
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: vpn
+      vars: 
+        VPN_INSTALL: true
+...

@@ -1,0 +1,12 @@
+---
+# default variables for the role (see Using Variables for more information). These variables have the lowest priority of any variables available and can be easily overridden by any other variable, including inventory variables.
+
+# Define if installing a new VPN server 
+VPN_INSTALL: false
+# Define if adding a new client
+VPN_CLIENT: false
+
+# Prompt or extra vars:
+# CLIENT_NAME
+# CLIENT_PASSWORD
+...

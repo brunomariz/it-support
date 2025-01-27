@@ -1,0 +1,15 @@
+---
+- name: Install the spack tool
+  hosts: workstations
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: spack
+      vars:
+        SPACK_PACKAGE_NAMES:
+          # - python
+          # - mpich
+          - apptainer
+          # - amr-wind +openfast +netcdf
+...

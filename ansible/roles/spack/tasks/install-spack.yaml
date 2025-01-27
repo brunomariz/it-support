@@ -1,0 +1,93 @@
+---
+- name: Install git (RedHat)
+  ansible.builtin.dnf:
+    name: git
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install git (Debian)
+  ansible.builtin.apt:
+    name: git
+    state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+
+- name: Clone spack repo 
+  ansible.builtin.git:
+    repo: 'https://github.com/spack/spack.git'
+    version: develop
+    depth: 1
+    dest: "{{ SPACK_DIR }}"
+    update: false
+
+# - name: Add a+x permission to /home/maintenance/ 
+#   ansible.builtin.file:
+#     path: /home/maintenance
+#     state: directory
+#     mode: "0711"
+
+- name: Install Development Tools (RedHat)
+  ansible.builtin.dnf:
+    name: '@Development tools'
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install Development Tools (Debian)
+  ansible.builtin.apt:
+    name: build-essential
+    state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install rpm Spack dependencies (RedHat)
+  ansible.builtin.dnf:
+    name:
+      - epel-release
+      - curl
+      - findutils
+      - gcc-gfortran
+      - gnupg2
+      - hostname
+      - iproute
+      - python3
+      - python3-pip
+      - python3-setuptools
+      - unzip
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install rpm Spack dependencies (Debian)
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - ca-certificates
+      - coreutils
+      - curl
+      - environment-modules
+      - gfortran
+      - git
+      - gpg
+      - lsb-release
+      - python3
+      - python3-distutils
+      - python3-venv
+      - unzip
+      - zip
+    state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install pip Spack dependencies
+  ansible.builtin.pip:
+    name:
+      - boto3
+    state: latest
+
+- name: Create /etc/spack
+  ansible.builtin.file:
+    path: /etc/spack
+    state: directory
+
+- name: Configure spack to generate nice module names
+  ansible.builtin.copy:
+    src: files/modules.yaml
+    dest: /etc/spack/modules.yaml
+...

@@ -1,6 +1,0 @@
----
-# This is a subtask to be included
-- name: debug subtask
-  ansible.builtin.debug:
-    msg: "Hello from subtask!"
-...

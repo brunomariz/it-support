@@ -1,0 +1,29 @@
+---
+- name: Install expect dependencies
+  block:
+    - name: Install pip
+      ansible.builtin.dnf:
+        name: pip
+        state: latest
+
+    - name: Install pexpect
+      ansible.builtin.pip:
+        name: pexpect
+
+- name: Run the script
+  environment:
+    MENU_OPTION: "1"
+    CLIENT: "{{CLIENT_NAME}}"
+    PASS: 2
+  ansible.builtin.expect:
+    chdir: /home/maintenance/
+    command: ./openvpn-install.sh
+    responses:
+      Enter PEM pass phrase: "{{CLIENT_PASSWORD}}"
+
+- name: Copy the client file
+  ansible.builtin.fetch:
+    src: /home/maintenance/{{CLIENT_NAME}}.ovpn
+    dest: ./tmp/
+    flat: true
+...

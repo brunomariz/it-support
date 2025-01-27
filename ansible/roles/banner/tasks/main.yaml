@@ -1,0 +1,12 @@
+---
+# the main list of tasks that the role executes
+- name: Include subtasks for restricted access machines
+  import_tasks: restricted.yaml
+  when: BANNER_CONFIGURE_RESTRICTED
+
+- name: Include subtasks for shared access machines
+  import_tasks: shared.yaml
+  when: BANNER_CONFIGURE_SHARED
+
+
+...

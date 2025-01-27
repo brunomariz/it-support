@@ -1,0 +1,21 @@
+---
+- name: Configure slurm headnode
+  hosts: slurmheadnode
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: slurm
+      vars:
+        SLURM_CONFIGURE_HEADNODE: true
+
+- name: Configure slurm headnode
+  hosts: slurmcomputenode
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: slurm
+      vars:
+        SLURM_CONFIGURE_COMPUTENODE: true
+...

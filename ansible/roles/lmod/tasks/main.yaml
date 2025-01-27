@@ -1,0 +1,8 @@
+---
+# the main list of tasks that the role executes
+- name: Install Lua
+  import_tasks: install-lua.yaml
+
+- name: Install Lmod
+  import_tasks: install-lmod.yaml
+...

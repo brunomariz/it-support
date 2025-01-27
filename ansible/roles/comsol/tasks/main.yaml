@@ -1,0 +1,36 @@
+---
+# the main list of tasks that the role executes
+- name: Create mount point
+  ansible.builtin.file:
+    path: /mnt/comsol
+    state: directory
+
+- name: Mount ISO
+  ansible.posix.mount:
+    src: /share/comsol/COMSOL53a_dvd.iso
+    path: /mnt/comsol
+    opts: loop,exec
+    fstype: iso9660
+    state: mounted
+
+- name: Send template for setupconfig.ini
+  ansible.builtin.template:
+    src: templates/setupconfig.ini
+    dest: /tmp/setupconfig.ini
+
+- name: Create install directory
+  ansible.builtin.file:
+    path: "{{ COMSOL_INSTALL_DIR }}"
+    state: directory
+
+- name: Install dependencies
+  ansible.builtin.dnf:
+    name: 
+      - webkit2gtk3
+      - redhat-lsb
+
+- name: Run installer
+  ansible.builtin.shell:
+    chdir: /mnt/comsol
+    cmd: ./setup -s /tmp/setupconfig.ini
+...

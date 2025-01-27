@@ -1,0 +1,100 @@
+---
+- name: Create initial database
+  ansible.builtin.shell:
+    chdir: 
+    cmd: |
+      DB_EXISTS=$(mysql -uroot -e "SELECT 1 FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = 'zabbix';" -s -N); if [ "$DB_EXISTS" != "1" ]; then mysql -uroot -e "CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"; fi
+      mysql -uroot -e "CREATE USER IF NOT EXISTS 'zabbix'@'localhost' IDENTIFIED BY 'zabbix';"
+      mysql -uroot -e "grant all privileges on zabbix.* to zabbix@localhost;"
+      mysql -uroot -e "set global log_bin_trust_function_creators = 1;"
+
+- name: Install Zabbix repository RPM
+  ansible.builtin.shell:
+    cmd: "rpm -Uvh https://repo.zabbix.com/zabbix/7.0/rocky/9/x86_64/zabbix-release-7.0-2.el9.noarch.rpm"
+  register: res
+  failed_when: res.rc != 0 and res.rc != 2
+  
+- name: Install zabbix packages
+  ansible.builtin.dnf:
+    name: 
+      - zabbix-server-mysql
+      - zabbix-web-mysql
+      - zabbix-apache-conf
+      - zabbix-sql-scripts
+      - zabbix-selinux-policy
+      - zabbix-agent
+    state: latest
+
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next task may take a while"
+      
+- name: Check if table 'role' exists in the database
+  ansible.builtin.shell:
+    cmd: mysql -uroot -e "SHOW TABLES LIKE 'role'" zabbix
+  register: db_tables
+
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next task may take a while"
+
+- name: Import initial schema and data 
+  ansible.builtin.shell:
+    cmd: |
+      zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -pzabbix zabbix
+  when: "'role' not in db_tables.stdout"
+  register: res
+
+- name: Disable log_bin_trust_function_creators option after importing database schema
+  ansible.builtin.shell:
+    chdir: 
+    cmd: |
+      mysql -uroot -e "set global log_bin_trust_function_creators = 0;"
+
+- name: Configure database password
+  ansible.builtin.lineinfile:
+    path: /etc/zabbix/zabbix_server.conf 
+    regexp: ^#?\s?DBPassword
+    line: DBPassword=zabbix
+
+- name: Restart and enable services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  loop:
+    - zabbix-server
+    - zabbix-agent
+    - httpd
+    - php-fpm
+
+- name: Configure selinux
+  ansible.builtin.shell:
+    cmd: |
+      setsebool -P httpd_can_connect_zabbix on
+      setsebool -P httpd_can_network_connect_db on
+      setsebool -P httpd_can_network_connect_db=1
+
+- name: Restart apache web server
+  ansible.builtin.systemd_service:
+    name: httpd
+    state: restarted
+
+- name: Open firewall ports
+  ansible.builtin.firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+    - http
+    - mysql
+
+- name: Restart firewall
+  ansible.builtin.systemd_service:
+    name: firewalld
+    state: restarted
+
+- name: Disable SELinux (might be dangerous)
+  ansible.builtin.shell:
+    cmd: setenforce 0
+...

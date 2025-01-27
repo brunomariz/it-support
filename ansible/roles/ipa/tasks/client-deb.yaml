@@ -1,0 +1,90 @@
+---
+#  Configure IPA client on Debian based distros
+- name: Install freeipa-client package
+  ansible.builtin.apt:
+    name: freeipa-client
+    state: latest
+    update_cache: yes
+
+- name: Configure firewall
+  vars:
+    tcp_ports: 
+      - 80
+      - 88
+      - 389
+      - 464
+      - 22
+    udp_ports: 
+      - 88
+      - 464
+      - 123
+  block:
+    - name: Ensure UFW is installed
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+        update_cache: true
+
+    - name: Allow TCP ports
+      ansible.builtin.command:
+        cmd: ufw allow {{ item }}/tcp
+      loop: "{{ tcp_ports }}"
+
+    - name: Allow UDP ports
+      ansible.builtin.command:
+        cmd: ufw allow {{ item }}/udp
+      loop: "{{ udp_ports }}"
+
+    - name: Enable UFW
+      ansible.builtin.shell:
+        cmd: yes | ufw enable
+      ignore_errors: true
+
+    - name: Reload UFW to apply changes
+      ansible.builtin.shell:
+        cmd: yes | ufw reload
+
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next steps may take a while"
+
+- name: Get hostname
+  ansible.builtin.shell:
+    cmd: hostname
+  register: hostname
+
+- name: Set host_fqdn
+  when: host_fqdn is not defined
+  ansible.builtin.set_fact:
+    host_fqdn: "{{ hostname.stdout }}"
+
+- name: Append '.gres.internal' if missing
+  ansible.builtin.set_fact:
+    host_fqdn: "{{ host_fqdn }}.gres.internal"
+  when: not host_fqdn.endswith('.gres.internal')
+
+- name: Show host FQDN
+  ansible.builtin.debug:
+    var: host_fqdn
+
+- name: Install chrony
+  ansible.builtin.apt:
+    name: chrony
+    state: latest
+    update_cache: true
+
+- name: Restart chrony service
+  ansible.builtin.service:
+    name: chrony
+    state: restarted
+
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next task may take a while"
+
+- name: Run ipa-client-install
+  ansible.builtin.command:
+    cmd: ipa-client-install --force-join --mkhomedir --domain={{ IPA_DOMAIN_NAME }} --server={{ IPA_SERVER_HOSTNAME }} --realm={{ IPA_REALM_NAME }} -p admin -w {{ IPA_ADMIN_PASSWORD }} --hostname {{ host_fqdn }} -U
+  register: install_result
+  failed_when: '"FAILED" in install_result.stdout and "is already configured" not in install_result.stdout'
+...

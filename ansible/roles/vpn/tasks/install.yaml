@@ -1,0 +1,63 @@
+---
+# Install OpenVPN with openvpn-install script
+- name: Disable SELinux
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: ^SELINUX=
+    line: SELINUX=enabled
+
+- name: Enable IP forwarding
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    regexp: net.ipv4.ip_forward
+    line: net.ipv4.ip_forward = 1
+
+
+- name: Configure firewall
+  block:
+
+  - name: Add service openvpn
+    ansible.builtin.firewalld:
+      service: openvpn
+      state: enabled
+      permanent: true
+
+  - name: Add service openvpn to trusted zone
+    ansible.builtin.firewalld: 
+      service: openvpn
+      zone: trusted
+      state: enabled
+      permanent: true
+
+  - name: Add interface tun0 to trusted zone
+    ansible.builtin.firewalld: 
+      zone: trusted
+      interface: tun0
+      state: enabled
+      permanent: true
+
+  - name: Add masquerade
+    ansible.builtin.firewalld:
+      masquerade: true
+      state: enabled
+      permanent: true
+
+  - name: Restart firewalld
+    ansible.builtin.systemd_service:
+      name: firewalld
+      state: restarted
+
+- name: Run openvpn-install script
+  block:
+    - name: Download openvpn-install
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+        dest: /home/maintenance/openvpn-install.sh
+        mode: a+x
+      
+    - name: Run the script
+      ansible.builtin.shell:
+        chdir: /home/maintenance/
+        cmd: AUTO_INSTALL=y /home/maintenance/openvpn-install.sh
+
+...

@@ -1,0 +1,10 @@
+---
+# the main list of tasks that the role executes
+- name: Configure headnode
+  import_tasks: configure-headnode.yaml
+  when: SLURM_CONFIGURE_HEADNODE
+
+- name: Configure headnode
+  import_tasks: configure-computenode.yaml
+  when: SLURM_CONFIGURE_COMPUTENODE
+...

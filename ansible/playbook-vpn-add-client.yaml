@@ -1,0 +1,20 @@
+---
+- name: Add openvpn client
+  hosts: vpnserver
+  become: true
+  gather_facts: true
+
+  vars_prompt:
+    - name: CLIENT_NAME
+      prompt: Client name
+      private: false
+
+    - name: CLIENT_PASSWORD
+      prompt: Client password
+      private: false
+
+  roles:
+    - role: vpn
+      vars: 
+        VPN_CLIENT: true
+...

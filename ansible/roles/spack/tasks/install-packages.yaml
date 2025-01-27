@@ -1,0 +1,14 @@
+---
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next task may take a while"
+
+- name: Install spack packages
+  ansible.builtin.shell:
+    cmd: | 
+      . {{ SPACK_DIR }}/share/spack/setup-env.sh 
+      spack install {{item}} 
+  loop: "{{ SPACK_PACKAGE_NAMES }}"
+  when: SPACK_PACKAGE_NAMES is defined and (SPACK_PACKAGE_NAMES|length>0)
+
+...

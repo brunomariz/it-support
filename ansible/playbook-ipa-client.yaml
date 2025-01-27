@@ -1,0 +1,9 @@
+- name: Configure IPA clients
+  hosts: hydras
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: ipa
+      vars:
+        IPA_CONFIGURE_CLIENT: TRUE

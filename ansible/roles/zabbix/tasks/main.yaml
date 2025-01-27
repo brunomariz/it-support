@@ -1,0 +1,11 @@
+---
+# the main list of tasks that the role executes
+- name: Include server subtasks
+  import_tasks: zabbix-server.yaml
+  when: ZABBIX_CONFIGURE_SERVER
+  
+- name: Include client subtasks
+  import_tasks: zabbix-client.yaml
+  when: ZABBIX_CONFIGURE_CLIENT
+
+...

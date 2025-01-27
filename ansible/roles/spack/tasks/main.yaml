@@ -1,0 +1,8 @@
+---
+# the main list of tasks that the role executes
+- name: Install Spack
+  import_tasks: install-spack.yaml
+
+- name: Install packages using spack
+  import_tasks: install-packages.yaml
+...

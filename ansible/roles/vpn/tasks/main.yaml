@@ -1,0 +1,10 @@
+---
+# the main list of tasks that the role executes
+- name: Install OpenVPN
+  import_tasks: install.yaml
+  when: VPN_INSTALL
+
+- name: Add VPN client
+  import_tasks: client.yaml
+  when: VPN_CLIENT
+...

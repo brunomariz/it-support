@@ -1,0 +1,30 @@
+---
+- name: Set fact for RedHat
+  ansible.builtin.set_fact:
+    NFS_CLIENT_PACKAGE_NAME: nfs-utils
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Set fact for Debian
+  ansible.builtin.set_fact:
+    NFS_CLIENT_PACKAGE_NAME: nfs-common
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install NFS client package
+  ansible.builtin.package:
+    name: "{{ NFS_CLIENT_PACKAGE_NAME }}"
+    state: latest
+
+- name: Create mount folder
+  ansible.builtin.file:
+    path: "{{NFS_MOUNTED_DIR}}"
+    state: directory
+    mode: "777"
+
+- name: Mount NFS share from server
+  ansible.posix.mount:
+    src: "{{ NFS_SERVER_IP }}:{{ NFS_SERVER_SHARE_PATH }}"
+    path: "{{ NFS_MOUNTED_DIR }}"
+    opts: rw,sync,hard
+    state: mounted
+    fstype: nfs
+...

@@ -1,0 +1,27 @@
+---
+# the main list of tasks that the role executes
+- name: Install dependencies for Rocky linux 9
+  import_tasks: rl-9.yaml
+  when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '9'
+
+- name: Copy template setup-isos.sh
+  ansible.builtin.template:
+    src: templates/setup-isos.sh
+    dest: /tmp/setup-isos.sh
+    mode: "755"
+
+- name: Run setup-isos.sh
+  ansible.builtin.shell:
+    chdir: /tmp
+    cmd: |
+      ./setup-isos.sh
+
+# The command below takes too long and ansible may lose the connection.
+# Run it manually or change the task bellow to have the command run in the background.
+#
+# - name: Run INSTALL command
+#   ansible.builtin.shell:
+#     chdir: "{{ ANSYS_MNT_PATH }}/disk1"
+#     cmd: |
+#       ./INSTALL -silent -install_dir {{ ANSYS_INSTALL_DIR }} -aqwa -autodyn -cfx -cfdpost -chemkin -ansyscust -ensight -fensapice -forte -fluent -icemcfd -motion -mechapdl -lsdyna -mfl -optislang -polyflow -reactionwb -sherlock -speoshpc -turbogrid -acis -icepak -rsm -catia5_reader -ug_plugin -parasolid -licserverinfo 2325:1055:{{ ANSYS_LM_SERVER_HOSTNAME }} -media_dir2 {{ ANSYS_MNT_PATH }}/disk2 -media_dir3 {{ ANSYS_MNT_PATH }}/disk3 -media_dir4 {{ ANSYS_MNT_PATH }}/disk4
+...

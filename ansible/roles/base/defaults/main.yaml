@@ -1,4 +1,7 @@
 ---
 # default variables for the role (see Using Variables for more information). These variables have the lowest priority of any variables available and can be easily overridden by any other variable, including inventory variables.
 example_var: "sysadmin"
+# usually variables such as the ones below can be used to conditionally execute parts of the role in each kind of host. These can be set in the playbook, for example
+BASE_CONFIGURE_SERVER: false
+BASE_CONFIGURE_CLIENT: false
 ...

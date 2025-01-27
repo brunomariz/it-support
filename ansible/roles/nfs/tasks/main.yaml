@@ -1,0 +1,16 @@
+---
+# the main list of tasks that the role executes
+
+- name: Check if NFS_CONFIGURE_SERVER and NFS_CONFIGURE_CLIENT are different
+  ansible.builtin.debug:
+    msg: "NFS_CONFIGURE_SERVER and NFS_CONFIGURE_CLIENT should have different values. Checking..."
+  failed_when: NFS_CONFIGURE_SERVER == NFS_CONFIGURE_CLIENT
+    
+- name: Configure server
+  import_tasks: server.yaml
+  when: NFS_CONFIGURE_SERVER
+
+- name: Configure client
+  import_tasks: client.yaml
+  when: NFS_CONFIGURE_CLIENT
+...

@@ -1,0 +1,12 @@
+---
+headnode:
+  vars:
+  hosts:
+    raava.gres.internal:
+
+computenodes:
+  vars:
+  hosts:
+    node1.gres.internal:
+    node2.gres.internal:
+...

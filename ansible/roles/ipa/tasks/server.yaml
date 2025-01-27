@@ -1,0 +1,60 @@
+---
+# Server IPA configuration
+
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{IPA_SERVER_HOSTNAME}}"
+
+- name: Configure firewall
+  vars:
+    tcp_ports: 
+      - 80
+      - 88
+      - 389
+      - 464
+    udp_ports: 
+      - 88
+      - 464
+      - 123
+  block:
+
+    - name: Configure firewall service
+      ansible.posix.firewalld:
+        service: freeipa-4 
+        permanent: true
+        state: enabled
+
+    - name: Configure firewall TCP ports
+      ansible.posix.firewalld:
+        port: "{{item}}/tcp" 
+        permanent: true
+        state: enabled
+      loop: "{{tcp_ports}}"
+
+    - name: Configure firewall UDP ports
+      ansible.posix.firewalld:
+        port: "{{ item }}/udp" 
+        permanent: true
+        state: enabled
+      loop: "{{udp_ports}}"
+
+    - name: Restart firewall
+      ansible.builtin.systemd_service:
+        name: firewalld
+        state: reloaded
+
+
+- name: Wait warning
+  ansible.builtin.debug:
+    msg: "Warning: the next steps may take a while"
+
+- name: Install freeipa-server package
+  ansible.builtin.dnf:
+    name: freeipa-server 
+    state: latest
+
+- name: Run ipa-server-install
+  ansible.builtin.command:
+    cmd: ipa-server-install -r {{ IPA_REALM_NAME }} -n {{ IPA_DOMAIN_NAME }} -p {{ IPA_DM_PASSWORD }} -a {{ IPA_ADMIN_PASSWORD }} --mkhomedir -U
+  register: install_result
+  failed_when: '"FAILED" in install_result.stdout and "is already configured" not in install_result.stdout'

@@ -1,0 +1,14 @@
+---
+# the main list of tasks that the role executes
+- name: Configure Servers (RHEL)
+  import_tasks: server.yaml
+  when: IPA_CONFIGURE_SERVER
+
+- name: Configure RHEL Clients
+  import_tasks: client-rhel.yaml
+  when: IPA_CONFIGURE_CLIENT and ansible_facts['os_family'] == "RedHat"
+
+- name: Configure Debian Clients
+  import_tasks: client-deb.yaml
+  when: IPA_CONFIGURE_CLIENT and ansible_facts['os_family'] == "Debian"
+...

@@ -1,0 +1,2 @@
+nameserver {{ DNS_NAMESERVER1_IP }}
+nameserver {{ DNS_NAMESERVER2_IP }}

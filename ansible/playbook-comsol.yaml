@@ -1,0 +1,20 @@
+- name: Installs Ansys on workstations.
+  hosts: workstations
+  become: true
+  gather_facts: true
+
+  roles:
+
+    # Configure comsol NFS share on client
+    - role: nfs
+      vars:
+        # Global configuration vars
+        # Path exported from server
+        NFS_SERVER_SHARE_PATH: /share/comsol
+        # Define if client taks should be ran on hosts
+        NFS_CONFIGURE_CLIENT: true
+        # Client configuration vars
+        NFS_SERVER_IP: comsol.nfs.gres.internal
+        NFS_MOUNTED_DIR: /share/comsol
+
+    - role: comsol

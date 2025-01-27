@@ -1,0 +1,9 @@
+---
+IPA_SERVER_HOSTNAME: ipa.gres.internal # The fully-qualified DNS name of this server, e.g. ipa-server.example.com.
+IPA_REALM_NAME: GRES.INTERNAL # The Kerberos realm name for the new IPA deployment.
+IPA_DOMAIN_NAME: gres.internal # The primary DNS domain of the IPA deployment, e.g. example.com.
+
+# Define if server or client taks should be ran
+IPA_CONFIGURE_SERVER: false
+IPA_CONFIGURE_CLIENT: false
+...

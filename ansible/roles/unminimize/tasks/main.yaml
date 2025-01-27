@@ -1,0 +1,6 @@
+---
+# the main list of tasks that the role executes
+- name: Include subtasks for RHEL 9
+  import_tasks: rhel-9.yaml
+  when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '9'
+...

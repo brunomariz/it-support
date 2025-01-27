@@ -1,0 +1,8 @@
+---
+# Package names to be used in 'spack install <package>'
+# SPACK_PACKAGE_NAMES:
+#   - package1
+#   - packae2
+
+SPACK_DIR: /opt/spack
+...

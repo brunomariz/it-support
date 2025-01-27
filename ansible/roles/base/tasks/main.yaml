@@ -18,8 +18,12 @@
     dest: /tmp/example2.txt
 
 - name: Include subtasks
-  import_tasks: subtasks.yaml
-  when: true
+  import_tasks: server-subtasks.yaml
+  when: BASE_CONFIGURE_SERVER
+
+- name: Include subtasks
+  import_tasks: client-subtasks.yaml
+  when: BASE_CONFIGURE_CLIENT
 
 
 ...

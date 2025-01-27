@@ -1,0 +1,22 @@
+---
+
+- name: Install xorg-x11-server-Xorg
+  ansible.builtin.dnf:
+    name: xorg-x11-server-Xorg
+    state: present
+
+- name: Install "Server with GUI"
+  ansible.builtin.dnf:
+    name: "@Server with GUI"
+    state: present
+
+- name: Set the default system target to graphical.target
+  ansible.builtin.systemd_service:
+    name: graphical.target
+    state: started
+    enabled: true
+
+- name: Reboot warning
+  ansible.builtin.debug:
+    msg: "It may be necessary to reboot the system to apply changes"
+...

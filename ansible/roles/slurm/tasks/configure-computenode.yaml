@@ -1,0 +1,5 @@
+---
+- name: debug compute
+  ansible.builtin.debug:
+    msg: compute
+...

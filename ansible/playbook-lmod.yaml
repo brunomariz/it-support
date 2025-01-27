@@ -1,0 +1,9 @@
+---
+- name: Install Lmod
+  hosts: workstations
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: lmod
+...

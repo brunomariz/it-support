@@ -1,0 +1,58 @@
+---
+- name: Set fact for RedHat
+  ansible.builtin.set_fact:
+    NFS_SERVER_PACKAGE_NAME: nfs-utils
+  when: ansible_os_family == "RedHat"
+
+- name: Set fact for Debian
+  ansible.builtin.set_fact:
+    NFS_SERVER_PACKAGE_NAME: nfs-kernel-server
+  when: ansible_os_family == "Debian"
+
+- name: Set server facts
+  ansible.builtin.set_fact:
+    nfs_server_ip: "{{ansible_default_ipv4.address}}"
+
+- name: Install NFS kernel
+  ansible.builtin.package:
+    name: "{{ NFS_SERVER_PACKAGE_NAME }}"
+    state: latest
+
+- name: Create export folder
+  ansible.builtin.file:
+    path: "{{ NFS_SERVER_SHARE_PATH }}"
+    state: directory
+    mode: "777"
+
+- name: Certify folder is exported in exports file
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    line: "{{ NFS_SERVER_SHARE_PATH }} {{ NFS_CLIENTS_IP }}(rw,no_root_squash,no_subtree_check)"
+
+- name: Make NFS share availiable
+  ansible.builtin.command: 
+    cmd: exportfs -a 
+
+- name: Reload NFS server service
+  ansible.builtin.systemd_service:
+    name: nfs-server
+    state: restarted
+
+- name: Add NFS to services
+  ansible.posix.firewalld :
+    service: nfs
+    state: enabled
+    zone: public
+
+- name: Add RPC Bind to services
+  ansible.posix.firewalld :
+    service: rpc-bind
+    state: enabled
+    zone: public
+
+- name: Add mountd to services
+  ansible.posix.firewalld :
+    service: mountd
+    state: enabled
+    zone: public
+...

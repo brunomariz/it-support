@@ -1,0 +1,28 @@
+---
+- name: Provision workstations
+  hosts: ws04.gres.internal
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: ipa
+      vars:
+        IPA_CONFIGURE_CLIENT: true
+    - role: lmod
+    - role: spack
+      # vars:
+      #   SPACK_PACKAGE_NAMES:
+          # - python
+          # - mpich
+          # - apptainer
+          # - amr-wind +openfast +netcdf
+
+  tasks:
+    - name: Install packages
+      ansible.builtin.dnf:
+        name: 
+          - htop
+          - screen
+          - mesa-libGLU
+        state: present
+...

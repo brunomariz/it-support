@@ -1,0 +1,19 @@
+---
+# Global configuration vars
+# Path exported from server
+NFS_SERVER_SHARE_PATH: /share/data
+# If neither variable below is true, nothing will be done 
+# Define if server taks should be ran on hosts
+NFS_CONFIGURE_SERVER: false
+# Define if client taks should be ran on hosts
+NFS_CONFIGURE_CLIENT: false
+
+# Server configuration vars
+NFS_CLIENTS_IP: "*"
+NFS_CLIENTS_NETMASK: 255.255.255.0
+
+# Client configuration vars
+NFS_SERVER_IP: "" # ex: ansys.nfs.gres.internal
+NFS_MOUNTED_DIR: /share/data
+
+...
