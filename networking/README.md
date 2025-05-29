@@ -1,5 +1,17 @@
 # Networking tools
 
+## Set host IP
+
+Check the connection name with `nmcli con show`, then 
+
+```
+nmcli con mod "Wired connection 1" ipv4.method manual ipv4.addr "192.168.1.X/24" +ipv4.dns 192.168.1.4 ipv4.gateway 192.168.1.1
+```
+
+```
+nmcli con down "Wired connection 1" && nmcli con up "Wired connection 1"
+```
+
 ## Image contents
 
 - ipcalc
