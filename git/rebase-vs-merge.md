@@ -4,7 +4,7 @@ This guide shows the difference between git merge and git rebase. Additionally, 
 
 ## Updating your own branch with new features from main
 
-*Warning: Be very careful when rebasing, especially using GitHub's UI. If you unintentionally rebase the main branch with changes from a development branch, instead of the opposite, the entire commit history of the main branch will be permanently altered.* Read the instructions below carefully before proceeding with a rebase, and watch this informative video: https://www.youtube.com/watch?v=DkWDHzmMvyg.
+**⚠️Warning: Be very careful when rebasing, especially using GitHub's UI. If you unintentionally rebase the main branch with changes from a development branch, instead of the opposite, the entire commit history of the main branch will be permanently altered.** Read the instructions below carefully before proceeding with a rebase, and watch this informative video: https://www.youtube.com/watch?v=DkWDHzmMvyg.
 
 When you create your own branch for development, the commit tree will look something like this:
 
@@ -260,7 +260,7 @@ hint: use 'git pull' before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 
-- One simple and **dangerous** way to fix this issue is to force push, which will rewrite the commits in the remote branch. The problem with this is that if someone else is also working on that branch, they will be working from commits that dont exist anymore, and won't be able to push anymore. If you are sure you are the only person working on your branch, you can force this rewrite with the following command:
+- ⚠️ One simple and **dangerous** way to fix this issue is to force push, which will rewrite the commits in the remote branch. The problem with this is that if someone else is also working on that branch, they will be working from commits that dont exist anymore, and won't be able to push anymore. If you are sure you are the only person working on your branch, you can force this rewrite with the following command:
 
 ```
 git push --force
@@ -285,7 +285,7 @@ git push -u origin development:development-rebase
 
 - The downside of this approach is that it may cause confusion as there'll be a large number of branches for the same feature, which is not ideal. A more adequate approach in this case would be to merge instead of rebase.
 
-- Note: **This whole problem can be avoided if only one person works on a given development branch at a time**.
+- Note: **💡 This whole problem can be avoided if only one person works on a given development branch at a time**.
 
 ### Practical merge example
 
@@ -338,7 +338,7 @@ $ git log --graph --oneline --all
 * d67c70f Initial commit
 ```
 
-Now let's say that, once again, we want to update the development branch with the new commits from main. As mentioned previously, if someone else is working on the development branch, a rebase followed by a force push could cause problems. The best way to solve this issue is, as mentioned previously, to **have only one person working on a given development branch at a time**. If that is not the case, however, a merge is a safer way to update the development branch with features from main.
+Now let's say that, once again, we want to update the development branch with the new commits from main. As mentioned previously, if someone else is working on the development branch, a rebase followed by a force push could cause problems. The best way to solve this issue is, as mentioned previously, to **💡have only one person working on a given development branch at a time**. If that is not the case, however, a merge is a safer way to update the development branch with features from main.
 
 To merge the changes from the main branch to a development branch, we can use the following command:
 
